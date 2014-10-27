@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+	
+<hibernate-mapping package="com.cx.bank.model">
+	<class name="User" table="user">
+		<id name="uid" column="uid" length="20">
+			<generator class="assigned"/>
+		</id>
+		<property name="uname" not-null="true" length="18" column="uname"/>
+		<property name="upwd" not-null="true" length="6" column="upwd"/>
+		<property name="umoney" not-null="true" column="umoney"/>	
+	</class>
+</hibernate-mapping>

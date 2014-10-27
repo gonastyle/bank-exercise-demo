@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN" "http://struts.apache.org/dtds/struts-config_1_3.dtd">
+
+<struts-config>
+
+  <form-beans>
+		<form-bean name="loginForm" type="com.cx.bank.form.UserLoginActionForm"/>	
+		<form-bean name="uerOperationForm" type="com.cx.bank.form.UserOperationActionForm"/>
+		<form-bean name="userRegisterActionForm" type="com.cx.bank.form.UserRegisterActionForm"/>
+			
+  </form-beans>
+
+  <global-exceptions>
+	   <exception key="error.exception" 
+                  type="com.cx.bank.exception.AppException"
+                  handler="com.cx.bank.exception.BankExceptionHandler"
+                  path="/index.jsp"/>    
+  </global-exceptions>
+  
+  <global-forwards>
+		<forward name="index" path="/index.jsp" redirect="true"/>
+	</global-forwards>
+  
+  <action-mappings>
+  <action path="/changelang"
+		  type="com.cx.bank.action.ChangeLanguageAction"
+		  scope="request"
+		>
+	 <forward name="success" path="/index.jsp" redirect="true"/>
+   </action>
+   
+   <action path="/loginout"
+		  type="com.cx.bank.action.UserLoginOutAction"
+		>
+   </action>
+   
+   <action path="/login"
+				type="com.cx.bank.action.UserLoginAction"
+				name="loginForm"
+				scope="request"
+		>
+			<forward name="sucess" path="/user/userSuccess.jsp" />
+		</action>
+   <action path="/register"
+				type="com.cx.bank.action.UserRegisterAction"
+				name="userRegisterActionForm"
+				scope="request"
+		>
+   </action>
+   
+   <action path="/userOperation"
+				type="com.cx.bank.action.UserOperationAction"
+				scope="request"
+				name="uerOperationForm"
+				parameter="command"
+		>
+				<forward name="find" path="/user/findUserMoney.jsp"/>
+				<forward name="take" path="/user/takeMoney.jsp"/>
+				<forward name="save" path="/user/saveMoney.jsp"/>
+				<forward name="transfer" path="/user/transferMoney.jsp"/>
+				<forward name="modify" path="/user/modifyUserPwd.jsp"/>
+				
+		</action>
+   
+  
+  </action-mappings>
+  
+<message-resources parameter="res.MessageResources" />
+</struts-config>
+

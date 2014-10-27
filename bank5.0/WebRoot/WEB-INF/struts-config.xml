@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<form-beans>
+
+		<form-bean name="loginForm" type="com.cx.bank.form.UserLoginActionForm" />
+		<form-bean name="uerOperationForm" type="com.cx.bank.form.UserOperationActionForm" />
+		<form-bean name="userRegisterActionForm" type="com.cx.bank.form.UserRegisterActionForm" />
+
+	</form-beans>
+
+	<global-exceptions>
+		<exception key="error.exception" type="com.cx.bank.exception.AppException"
+			handler="com.cx.bank.exception.BankExceptionHandler" path="/index.jsp" />
+	</global-exceptions>
+
+	<global-forwards>
+		<forward name="index" path="/index.jsp" redirect="true" />
+	</global-forwards>
+
+	<action-mappings>
+
+		<!-- 改变语言 -->
+		<action path="/changelang" type="com.cx.bank.action.ChangeLanguageAction"
+			scope="request">
+			<forward name="success" path="/index.jsp" redirect="true" />
+		</action>
+
+		<!-- 注销 ,不纳入spring管理-->
+		<action path="/loginout" type="com.cx.bank.action.UserLoginOutAction">
+		
+		</action>
+
+		<!-- 登陆 -->
+		<action path="/login"
+			type="org.springframework.web.struts.DelegatingActionProxy" name="loginForm"
+			scope="request">
+			<forward name="sucess" path="/user/userSuccess.jsp" />
+		</action>
+		<!-- 注册 -->
+		<action path="/register"
+			type="org.springframework.web.struts.DelegatingActionProxy"
+			 name="userRegisterActionForm"
+			scope="request">
+		</action>
+
+		<!-- 用户操作：修改密码，查询，取款，存款，转账 -->
+		<action path="/userOperation"
+			type="org.springframework.web.struts.DelegatingActionProxy" 
+			scope="request"
+			name="uerOperationForm" parameter="command">
+			
+			<forward name="find" path="/user/findUserMoney.jsp" />
+			<forward name="take" path="/user/takeMoney.jsp" />
+			<forward name="save" path="/user/saveMoney.jsp" />
+			<forward name="transfer" path="/user/transferMoney.jsp" />
+			<forward name="modify" path="/user/modifyUserPwd.jsp" />
+			
+		</action>
+
+
+	</action-mappings>
+	<!-- 国际化资源文件 -->
+	<message-resources parameter="res.MessageResources" />
+</struts-config>
+

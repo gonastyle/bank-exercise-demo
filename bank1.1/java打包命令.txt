@@ -1,0 +1,12 @@
+javac -d . BankTest.java
+
+java com.cx.bank.view.BankTest
+
+jar -cfm BankTest.jar Manifest com\cx\bank\view\BankTest.class
+
+
+Manifest.MF
+
+Manifest-Version: 1.0
+Class-Path: .
+Main-Class: com.cx.bank.view.BankTest
